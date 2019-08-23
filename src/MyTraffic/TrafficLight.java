@@ -1,22 +1,25 @@
-
 package MyTraffic;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import javax.swing.JFrame;
 import java.io.*;
 import sun.audio.*;
 //import javax.swing.ActionListener;
+
 /**
  *
- * @author Maseno
+ * @author TheOnlySmartBoy
  */
-public class TrafficLight extends javax.swing.JFrame {
+public class TrafficLight extends JFrame {
 
     private final int nRed = 10;
     private final int nYellow = 5;
     private final int nGreen = 10;
     private Timer timer;
-    private int r,y,g,speed;
+    private int r, r1, y, y1, g, g1, speed;
+
     /**
      * Creates new form TrafficLight
      */
@@ -25,44 +28,42 @@ public class TrafficLight extends javax.swing.JFrame {
         start();
     }
 
-    
-    private void start(){
-         speed = 500; // The speed of the timer 60 second
-         r = nRed; 
-         y = nYellow;
-         g = nGreen;
-        ActionListener action = new ActionListener(){
+    private void start() {
+        speed = 6000; // The speed of the timer 60 second
+        r = nRed;
+        r1 = (nRed * 10);
+        y = nYellow;
+        g = nGreen;
+        ActionListener action = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent evt){
-                if(r>=0){
-                red.setText(String.valueOf(r) + ":00");
-                r--;
-                }
-                else if(y>=0){
+            public void actionPerformed(ActionEvent evt) {
+                if (r1 >= 0) {
+                    for(int i=r1;i<100; r1--){
+                        red.setText(String.valueOf(r) + ":" + String.valueOf(r1));
+                        r--;
+                    }
+                } else if (y >= 0) {
                     red.setEnabled(false);
                     yellow.setEnabled(true);
                     yellow.setText(String.valueOf(y) + ":00");
                     y--;
-                }
-                else if(g>=0){
-                    
+                } else if (g >= 0) {
+
                     yellow.setEnabled(false);
                     green.setEnabled(true);
                     green.setText(String.valueOf(g) + ":00");
                     g--;
-                }
-                else if(y>=0){
+                } else if (y >= 0) {
                     green.setEnabled(false);
                     red.setEnabled(false);
                     yellow.setEnabled(true);
-                    yellow.setText(String.valueOf(y) + ":00");
+                    yellow.setText(String.valueOf(y) + ":" + String.valueOf((y * 10 - 1)));
                     y--;
-                }
-                else{
+                } else {
                     red.setEnabled(true);
                     yellow.setEnabled(false);
                     green.setEnabled(false);
-                    
+
                     r = nRed;
                     y = nYellow;
                     g = nGreen;
@@ -73,6 +74,7 @@ public class TrafficLight extends javax.swing.JFrame {
         timer = new Timer(speed, action);
         timer.start();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,7 +95,7 @@ public class TrafficLight extends javax.swing.JFrame {
 
         green.setBackground(new java.awt.Color(0, 0, 0));
         green.setFont(new java.awt.Font("Digital-7", 1, 36)); // NOI18N
-        green.setForeground(new java.awt.Color(255, 204, 51));
+        green.setForeground(new java.awt.Color(51, 255, 0));
         green.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Go.png"))); // NOI18N
         green.setText("00:00");
         green.setEnabled(false);
@@ -101,7 +103,7 @@ public class TrafficLight extends javax.swing.JFrame {
 
         red.setBackground(new java.awt.Color(0, 0, 0));
         red.setFont(new java.awt.Font("Digital-7", 1, 36)); // NOI18N
-        red.setForeground(new java.awt.Color(255, 204, 51));
+        red.setForeground(new java.awt.Color(255, 0, 0));
         red.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Stop.png"))); // NOI18N
         red.setText("00:00");
         red.setFocusable(false);
